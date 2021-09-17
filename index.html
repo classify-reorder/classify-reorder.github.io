@@ -16,6 +16,38 @@
 
 
 Classify-reorder algorithm for matching packets to rules. Reorganizes the data structure after matching the packet to improve performance on traffic with locality of reference.
+
+
+<br>
+<br>
+This paper is motivated by the vision of more efficient packet classification mechanisms that self-optimize in
+a demand-aware manner. At the heart of our approach lies a self-adjusting linear list data structure, where
+unlike in the classic data structure, there are dependencies and some items must be in front of the others; for
+example, to correctly classify packets by rules arranged in a linked list, each rule must be in front of lower
+priority rules that overlap with it. After each access we can rearrange the list, similarly to Move-To-Front, but
+dependencies need to be respected.
+
+<br>
+<br>
+We present a 4-competitive online rearrangement algorithm, whose cost is at most four times worse than
+the optimal offline algorithm; no deterministic algorithm can be better than 3-competitive. The algorithm is
+simple and attractive especially for memory-limited systems, as it does not require any additional memory
+(e.g., neither timestamps nor frequency statistics). This drop-in replacement for static lists of rules may enhance
+existing networked systems.
+
+
+<br>
+<br>
+Packet classification [13] is the most fundamental task in communication networks, performed by
+switches, routers and middleboxes (e.g., firewalls). Existing packet classifiers are typically traffic-
+oblivious: their internal data structures do not depend on the specific traffic patterns they serve. For
+example, decision trees are typically designed for good performance under uniform traffic patterns.
+This paper is motivated by the hypothesis that the performance of packet classification can be
+improved by more adaptive approaches. Indeed, in practice, workloads are often far from uniform,
+and the majority of traffic can be served with few rules [24]. If a packet classifier could identify
+and optimize toward the “heavy hitter rules”, its reaction time and throughput could potentially be
+improved.
+
  </body>
   </html>
   
